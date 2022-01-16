@@ -8,6 +8,7 @@ public class Usuario {
 
 	private LocalDate dataNascimento;
 	private String nome;
+	private Integer idade;
 	private String apelidoDevinflix;
 	private String endereco;
 	private boolean adimplente;
@@ -16,9 +17,10 @@ public class Usuario {
 	private Set<Conteudo> conteudosCurtidos = new HashSet<Conteudo>();
 	private Set<Conteudo> conteudosDescurtidos = new HashSet<Conteudo>();
 
-	public Usuario(String nome, String apelidoDevinflix) {
+	public Usuario(String nome, String apelidoDevinflix, Integer idade) {
 		super();
 		this.nome = nome;
+		this.idade = idade;
 		this.apelidoDevinflix = apelidoDevinflix;
 	}
 
@@ -96,6 +98,14 @@ public class Usuario {
 
 	public void setConteudosCurtidos(Conteudo conteudo) {
 		this.conteudosCurtidos.add(conteudo);
+	}
+
+	public Integer getIdade() {
+		return idade;
+	}
+
+	public void setIdade(Integer idade) {
+		this.idade = idade;
 	}
 
 	@Override

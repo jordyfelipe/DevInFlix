@@ -13,6 +13,7 @@ public abstract class Conteudo implements Moderavel{
 	protected int curtidas;
 	protected int descurtidas;
 	protected boolean improprio;
+	protected Integer faixaEtaria;
 	protected List<Comentario> comentarios = new ArrayList<Comentario>();
 	
 	public String getTitulo() {
@@ -73,6 +74,14 @@ public abstract class Conteudo implements Moderavel{
 	
 	public void setImproprio(boolean improprio) {
 		this.improprio = improprio;
+	}
+	
+	public Integer getFaixaEtaria() {
+		return faixaEtaria;
+	}
+
+	public void setFaixaEtaria(Integer faixaEtaria) {
+		this.faixaEtaria = faixaEtaria;
 	}
 
 	public abstract void comentar(String comentario, Usuario usuario);

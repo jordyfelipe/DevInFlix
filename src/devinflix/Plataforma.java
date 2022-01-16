@@ -6,7 +6,6 @@ import java.util.Set;
 
 import devinflix.entidades.Conta;
 import devinflix.entidades.Conteudo;
-import devinflix.entidades.Filme;
 import devinflix.entidades.Usuario;
 import devinflix.inicializadores.CatalogoInicializador;
 import devinflix.inicializadores.ContaInicializador;
@@ -68,15 +67,28 @@ public class Plataforma {
 	}
 
 	// Usuário seleciona e assite um filme;
-	public void selecionarConteudo(Filme filme, Usuario usuario) {
-		usuario.setConteudoSelecionado(filme);
+	public void selecionarConteudo(Conteudo conteudo, Usuario usuario) {
+		if(conteudo.getFaixaEtaria()<=usuario.getIdade()) {
+			usuario.setConteudoSelecionado(conteudo);
+			System.out.println("Conteúdo selecionado");
+		}else {
+			System.out.println("infelizmente, o conteúdo é impróprio para sua idade "+usuario.getNome());
+		}
+		
 	}
 
 	public static void main(String[] args) {
 		Plataforma devinflix = new Plataforma();
-
+		
+		// Adiciona novo perfil a conta
+		Usuario usuario1 = new Usuario("Joana", "Joaninha",18);
+		devinflix.setUsuarioConta(usuario1, devinflix.getContaPorId(1));
+		
 		// Conta 1 sugeriu um filme
 		devinflix.sugerirConteudo(devinflix.getConteudoPorId(1), devinflix.getContaPorId(1).getUsuarioPorId(1));
+		
+		// Conta 2 sugeriu uma série
+		devinflix.sugerirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0));
 
 		// Conta 2 comentou uma serie
 		devinflix.getConteudoPorId(0).comentar("Série muito boa! Recomendo!",
@@ -86,9 +98,6 @@ public class Plataforma {
 		System.out.println("Comentário adicionado ao conteúdo \"" + devinflix.getConteudoPorId(0).getTitulo() + "\": "
 				+ devinflix.getConteudoPorId(0).getComentarios().get(0).getDescrição() + " Autor: "
 				+ devinflix.getConteudoPorId(0).getComentarios().get(0).getUsuario().getNome());
-
-		// Conta 2 sugeriu uma série
-		devinflix.sugerirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0));
 
 		devinflix.curtirDescurtirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0),
 				true);
@@ -110,6 +119,9 @@ public class Plataforma {
 		// Remove um conteúdo impróprio
 		devinflix.setConteudos(devinflix.getConteudoPorId(0)
 				.removeConteudoImproprio(devinflix.getConteudos()));
+		
+		//Teste Restrição etária
+		devinflix.selecionarConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0));
 
 	}
 

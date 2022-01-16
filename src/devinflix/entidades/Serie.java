@@ -10,9 +10,10 @@ public class Serie extends Conteudo {
 
 	private int temporadas;
 
-	public Serie(String titulo) {
+	public Serie(String titulo, Integer faixaEtaria) {
 		super();
 		this.titulo = titulo;
+		this.faixaEtaria = faixaEtaria;
 	}
 
 	public int getTemporadas() {

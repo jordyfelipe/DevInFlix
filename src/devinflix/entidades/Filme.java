@@ -10,9 +10,10 @@ public class Filme extends Conteudo {
 
 	private String url;
 
-	public Filme(String titulo) {
+	public Filme(String titulo, Integer faixaEtaria) {
 		super();
 		this.titulo = titulo;
+		this.faixaEtaria = faixaEtaria;
 	}
 
 	public String getUrl() {
