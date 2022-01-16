@@ -35,28 +35,30 @@ public class Plataforma {
 	}
 
 	public void sugerirConteudo(Conteudo conteudo, Usuario usuario){
-		Set<Conteudo> conteudosSugeridos = usuario.getConteudoSugerido();
+		Set<Conteudo> conteudosSugeridos = usuario.getConteudosSugeridos();
 		for (Conteudo conteudoSugerido: conteudosSugeridos) {
 			if(conteudoSugerido.equals(conteudo)) {
 				System.out.println("Você já sugerio este filme!");
 			}else {
-				usuario.getConteudoSugerido().add(conteudo);
+				usuario.getConteudosSugeridos().add(conteudo);
 			}
 		}
 		//ChronoUnit.MONTHS.between(null, null);
 	}
 	
-	public void curtirDescurtirFilme(Filme filme, Usuario usuario, boolean curtir) {
+	public void curtirDescurtirConteudo(Conteudo conteudo, Usuario usuario, boolean curtir) {
 		if (curtir) {
-			filme.setCurtidas(filme.getCurtidas() + 1);
+			conteudo.setCurtidas(conteudo.getCurtidas() + 1);
+			usuario.setConteudosCurtidos(conteudo);
 		} else {
-			filme.setDescurtidas(filme.getDescurtidas() + 1);
+			conteudo.setDescurtidas(conteudo.getDescurtidas() + 1);
+			usuario.setConteudosDescurtidos(conteudo);
 		}
 	}
 	
 	// Usuário seleciona e assite um filme;
 	public void selecionarConteudo(Filme filme, Usuario usuario) {
-		usuario.setConteudoSelecionadoAtual(filme);
+		usuario.setConteudoSelecionado(filme);
 	}
 		
 	public static void main(String[] args) {
