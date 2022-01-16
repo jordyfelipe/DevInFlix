@@ -2,7 +2,7 @@ package devinflix.entidades;
 
 import java.time.LocalDate;
 
-public class Conteudo {
+public abstract class Conteudo {
 
 	protected String titulo;
 	protected Genero genero;
@@ -47,4 +47,6 @@ public class Conteudo {
 	public void setDescurtidas(int descurtidas) {
 		this.descurtidas = descurtidas;
 	}
+	
+	public abstract String getConteudo();
 }

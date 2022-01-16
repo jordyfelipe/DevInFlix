@@ -1,7 +1,8 @@
 package devinflix.entidades;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Usuario {
 
@@ -9,29 +10,31 @@ public class Usuario {
 	private String nome;
 	private String endereco;
 	private boolean adimplente;
-	private LinkedList<Conteudo> conteudoSugerido = new LinkedList<Conteudo>();
+	private Conteudo conteudoSelecionado;
+	private Set<Conteudo> conteudoSugerido = new HashSet<Conteudo>();
+	
 
 	public Usuario(String nome) {
 		super();
 		this.nome = nome;
 	}
 
-	public LinkedList<Conteudo> getConteudoSugerido() {
+	public Set<Conteudo> getConteudoSugerido() {
 		return conteudoSugerido;
 	}
 
-	public void setConteudoSugerido(LinkedList<Conteudo> conteudoSugerido) {
+	public void setConteudoSugerido(Set<Conteudo> conteudoSugerido) {
 		this.conteudoSugerido = conteudoSugerido;
 	}
 
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
-	
+
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -55,5 +58,18 @@ public class Usuario {
 	public void setAdimplente(boolean adimplente) {
 		this.adimplente = adimplente;
 	}
-	
+
+	public Conteudo getConteudoSelecionadoAtual() {
+		return conteudoSelecionado;
+	}
+
+	public void setConteudoSelecionadoAtual(Conteudo conteudoSelecionadoAtual) {
+		this.conteudoSelecionado = conteudoSelecionadoAtual;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [nome=" + nome + "]";
+	}
+
 }

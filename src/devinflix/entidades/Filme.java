@@ -16,5 +16,10 @@ public class Filme extends Conteudo {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	@Override
+	public String getConteudo() {
+		return this.titulo;
+	}
 	
 }

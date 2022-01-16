@@ -16,4 +16,9 @@ public class Serie extends Conteudo {
 		this.temporadas = temporadas;
 	}
 	
+	@Override
+	public String getConteudo() {
+		return this.titulo;
+	}
+	
 }
