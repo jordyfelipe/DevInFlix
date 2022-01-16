@@ -4,48 +4,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import devinflix.entidades.Conta;
 import devinflix.entidades.Conteudo;
 import devinflix.entidades.Filme;
 import devinflix.entidades.Usuario;
 import devinflix.inicializadores.CatalogoInicializador;
-import devinflix.inicializadores.UsuarioInicializador;
+import devinflix.inicializadores.ContaInicializador;
 
 public class Plataforma {
-	
+
 	private Set<Conteudo> conteudos = CatalogoInicializador.inicializaCatalogo();
-	private List<Usuario> usuarios = UsuarioInicializador.inicializaUsuarios();
-	
+	private Set<Conta> contas = ContaInicializador.inicializaContas();
+
+	public void setUsuarioConta(Usuario usuario, Conta conta) {
+		if (conta.getUsuariosVinculados().size() < 3) {
+			conta.getUsuariosVinculados().add(usuario);
+			System.out.println("Usuário incluído com sucesso!");
+		} else {
+			System.out.println("Máximo de usuários por conta já atingido!");
+		}
+	}
+
+	public Set<Conta> getContas() {
+		return contas;
+	}
+
+	public Conta getContaPorId(Integer index) {
+		List<Conta> contas = new ArrayList<Conta>(this.contas);
+		return contas.get(index);
+	}
+
 	public Set<Conteudo> getConteudos() {
 		return conteudos;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-	
-	public Usuario getUsuarioLogado(Integer index) {
-		Usuario usuarioLogado = this.usuarios.get(index);
-		return usuarioLogado;
-	}
-	
 	public Conteudo getConteudoPorId(Integer index) {
 		List<Conteudo> conteudosList = new ArrayList<Conteudo>(this.conteudos);
 		Conteudo conteudo = conteudosList.get(index);
 		return conteudo;
 	}
 
-	public void sugerirConteudo(Conteudo conteudo, Usuario usuario){
-		Set<Conteudo> conteudosSugeridos = usuario.getConteudosSugeridos();
-		for (Conteudo conteudoSugerido: conteudosSugeridos) {
-			if(conteudoSugerido.equals(conteudo)) {
-				System.out.println("Você já sugerio este filme!");
-			}else {
-				usuario.getConteudosSugeridos().add(conteudo);
-			}
-		}
-		//ChronoUnit.MONTHS.between(null, null);
+	public void sugerirConteudo(Conteudo conteudo, Usuario usuario) {
+		
+		usuario.setConteudoSugerido(conteudo);
+		System.out.println("Conteúdo sugerido com sucesso!");
+
+		// ChronoUnit.MONTHS.between(null, null);
 	}
-	
+
 	public void curtirDescurtirConteudo(Conteudo conteudo, Usuario usuario, boolean curtir) {
 		if (curtir) {
 			conteudo.setCurtidas(conteudo.getCurtidas() + 1);
@@ -55,22 +61,26 @@ public class Plataforma {
 			usuario.setConteudosDescurtidos(conteudo);
 		}
 	}
-	
+
 	// Usuário seleciona e assite um filme;
 	public void selecionarConteudo(Filme filme, Usuario usuario) {
 		usuario.setConteudoSelecionado(filme);
 	}
-		
+
 	public static void main(String[] args) {
 		Plataforma devinflix = new Plataforma();
-		Usuario usuarioLogado = devinflix.getUsuarioLogado(0);
-		
-		
-		
-		//devinflix.sugerirConteudo(usuarioLogado, );
-		
-		System.out.println(usuarioLogado.toString());
-		
+
+		Usuario usuario1 = new Usuario("Gabriela");
+		devinflix.setUsuarioConta(usuario1, devinflix.getContaPorId(0));
+
+		devinflix.sugerirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0));
+
+		/*
+		 * List<Conta> contas = new ArrayList<Conta>(devinflix.getContas()); for
+		 * (Usuario usuario : contas.get(0).getUsuariosVinculados()) {
+		 * System.out.println(usuario.toString()); }
+		 */
+
 	}
-	
+
 }

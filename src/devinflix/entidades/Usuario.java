@@ -1,6 +1,7 @@
 package devinflix.entidades;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Usuario {
@@ -10,9 +11,9 @@ public class Usuario {
 	private String endereco;
 	private boolean adimplente;
 	private Conteudo conteudoSelecionado;
-	private Set<Conteudo> conteudosSugeridos;
-	private Set<Conteudo> conteudosCurtidos;
-	private Set<Conteudo> conteudosDescurtidos;
+	private Set<Conteudo> conteudosSugeridos = new HashSet<Conteudo>();
+	private Set<Conteudo> conteudosCurtidos = new HashSet<Conteudo>();
+	private Set<Conteudo> conteudosDescurtidos = new HashSet<Conteudo>();
 
 	public Usuario(String nome) {
 		super();
@@ -66,7 +67,11 @@ public class Usuario {
 	public void setConteudosSugeridos(Set<Conteudo> conteudosSugeridos) {
 		this.conteudosSugeridos = conteudosSugeridos;
 	}
-	
+
+	public void setConteudoSugerido(Conteudo conteudo) {
+		this.conteudosSugeridos.add(conteudo);
+	}
+
 	public Set<Conteudo> getConteudosCurtidos() {
 		return conteudosCurtidos;
 	}
@@ -78,7 +83,7 @@ public class Usuario {
 	public void setConteudosDescurtidos(Conteudo conteudo) {
 		this.conteudosDescurtidos.add(conteudo);
 	}
-	
+
 	public void setConteudosCurtidos(Conteudo conteudo) {
 		this.conteudosCurtidos.add(conteudo);
 	}
