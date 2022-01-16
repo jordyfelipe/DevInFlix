@@ -8,6 +8,7 @@ public class Usuario {
 
 	private LocalDate dataNascimento;
 	private String nome;
+	private String apelidoDevinflix;
 	private String endereco;
 	private boolean adimplente;
 	private Conteudo conteudoSelecionado;
@@ -15,9 +16,18 @@ public class Usuario {
 	private Set<Conteudo> conteudosCurtidos = new HashSet<Conteudo>();
 	private Set<Conteudo> conteudosDescurtidos = new HashSet<Conteudo>();
 
-	public Usuario(String nome) {
+	public Usuario(String nome, String apelidoDevinflix) {
 		super();
 		this.nome = nome;
+		this.apelidoDevinflix = apelidoDevinflix;
+	}
+
+	public String getApelidoDevinflix() {
+		return apelidoDevinflix;
+	}
+
+	public void setApelidoDevinflix(String apelidoDevinflix) {
+		this.apelidoDevinflix = apelidoDevinflix;
 	}
 
 	public LocalDate getDataNascimento() {

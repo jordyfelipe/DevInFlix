@@ -45,7 +45,7 @@ public class Plataforma {
 	}
 
 	public void sugerirConteudo(Conteudo conteudo, Usuario usuario) {
-		
+
 		usuario.setConteudoSugerido(conteudo);
 		System.out.println("Conteúdo sugerido com sucesso!");
 
@@ -70,16 +70,20 @@ public class Plataforma {
 	public static void main(String[] args) {
 		Plataforma devinflix = new Plataforma();
 
-		Usuario usuario1 = new Usuario("Gabriela");
-		devinflix.setUsuarioConta(usuario1, devinflix.getContaPorId(0));
+		// Usuario usuario1 = new Usuario("Gabriela","Gabi");
+		// devinflix.setUsuarioConta(usuario1, devinflix.getContaPorId(0));
 
-		devinflix.sugerirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0));
+		// devinflix.sugerirConteudo(devinflix.getConteudoPorId(0),
+		// devinflix.getContaPorId(0).getUsuarioPorId(0));
 
 		/*
 		 * List<Conta> contas = new ArrayList<Conta>(devinflix.getContas()); for
 		 * (Usuario usuario : contas.get(0).getUsuariosVinculados()) {
 		 * System.out.println(usuario.toString()); }
 		 */
+		
+		devinflix.getConteudoPorId(0).comentar("Filme muito bom!", devinflix.getContaPorId(0).getUsuarioPorId(0));
+		System.out.println(devinflix.getConteudoPorId(0).getComentarios().get(0));
 
 	}
 
