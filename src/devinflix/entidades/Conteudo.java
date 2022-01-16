@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Conteudo implements Comentario {
+public abstract class Conteudo implements Moderavel{
 
 	protected String titulo;
 	protected Genero genero;
@@ -12,8 +12,9 @@ public abstract class Conteudo implements Comentario {
 	protected String sinopse;
 	protected int curtidas;
 	protected int descurtidas;
-	protected List<String> comentarios = new ArrayList<String>();
-
+	protected boolean improprio;
+	protected List<Comentario> comentarios = new ArrayList<Comentario>();
+	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -62,10 +63,20 @@ public abstract class Conteudo implements Comentario {
 		this.descurtidas = descurtidas;
 	}
 
-	public abstract String getConteudo();
-
-	public List<String> getComentarios() {
+	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
+	
+	public boolean isImproprio() {
+		return improprio;
+	}
+	
+	public void setImproprio(boolean improprio) {
+		this.improprio = improprio;
+	}
 
+	public abstract void comentar(String comentario, Usuario usuario);
+
+	public abstract String getConteudo();
+	
 }

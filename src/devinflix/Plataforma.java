@@ -29,6 +29,10 @@ public class Plataforma {
 		return contas;
 	}
 
+	public void setConteudos(Set<Conteudo> conteudos) {
+		this.conteudos = conteudos;
+	}
+
 	public Conta getContaPorId(Integer index) {
 		List<Conta> contas = new ArrayList<Conta>(this.contas);
 		return contas.get(index);
@@ -47,7 +51,7 @@ public class Plataforma {
 	public void sugerirConteudo(Conteudo conteudo, Usuario usuario) {
 
 		usuario.setConteudoSugerido(conteudo);
-		System.out.println("Conteúdo sugerido com sucesso!");
+		System.out.println(conteudo.getTitulo() + " sugerido com sucesso!");
 
 		// ChronoUnit.MONTHS.between(null, null);
 	}
@@ -56,6 +60,7 @@ public class Plataforma {
 		if (curtir) {
 			conteudo.setCurtidas(conteudo.getCurtidas() + 1);
 			usuario.setConteudosCurtidos(conteudo);
+			System.out.println("Conteúdo: " + conteudo.getTitulo() + " curtido!");
 		} else {
 			conteudo.setDescurtidas(conteudo.getDescurtidas() + 1);
 			usuario.setConteudosDescurtidos(conteudo);
@@ -70,20 +75,41 @@ public class Plataforma {
 	public static void main(String[] args) {
 		Plataforma devinflix = new Plataforma();
 
-		// Usuario usuario1 = new Usuario("Gabriela","Gabi");
-		// devinflix.setUsuarioConta(usuario1, devinflix.getContaPorId(0));
+		// Conta 1 sugeriu um filme
+		devinflix.sugerirConteudo(devinflix.getConteudoPorId(1), devinflix.getContaPorId(1).getUsuarioPorId(1));
 
-		// devinflix.sugerirConteudo(devinflix.getConteudoPorId(0),
-		// devinflix.getContaPorId(0).getUsuarioPorId(0));
+		// Conta 2 comentou uma serie
+		devinflix.getConteudoPorId(0).comentar("Série muito boa! Recomendo!",
+				devinflix.getContaPorId(0).getUsuarioPorId(0));
 
-		/*
-		 * List<Conta> contas = new ArrayList<Conta>(devinflix.getContas()); for
-		 * (Usuario usuario : contas.get(0).getUsuariosVinculados()) {
-		 * System.out.println(usuario.toString()); }
-		 */
-		
-		devinflix.getConteudoPorId(0).comentar("Filme muito bom!", devinflix.getContaPorId(0).getUsuarioPorId(0));
-		System.out.println(devinflix.getConteudoPorId(0).getComentarios().get(0));
+		// Mostra comentário
+		System.out.println("Comentário adicionado ao conteúdo \"" + devinflix.getConteudoPorId(0).getTitulo() + "\": "
+				+ devinflix.getConteudoPorId(0).getComentarios().get(0).getDescrição() + " Autor: "
+				+ devinflix.getConteudoPorId(0).getComentarios().get(0).getUsuario().getNome());
+
+		// Conta 2 sugeriu uma série
+		devinflix.sugerirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0));
+
+		devinflix.curtirDescurtirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0),
+				true);
+		devinflix.curtirDescurtirConteudo(devinflix.getConteudoPorId(1), devinflix.getContaPorId(1).getUsuarioPorId(1),
+				true);
+
+		// Pega um conteudo impróprio
+		// devinflix.getConteudoPorId(0).setConteudoImproprio(devinflix.getConteudos(),
+		// devinflix.getConteudoPorId(0));
+
+		// Classifica um comentario como impróprio
+		devinflix.getConteudoPorId(0).getComentarios().get(0).setImproprio(true);
+		// Remove um comentário impróprio
+		devinflix.setConteudos(devinflix.getConteudoPorId(0).getComentarios().get(0)
+				.removeConteudoImproprio(devinflix.getConteudos()));
+
+		// Classifica um conteúdo como impróprio
+		devinflix.getConteudoPorId(0).setImproprio(true);
+		// Remove um conteúdo impróprio
+		devinflix.setConteudos(devinflix.getConteudoPorId(0)
+				.removeConteudoImproprio(devinflix.getConteudos()));
 
 	}
 
