@@ -16,18 +16,18 @@ public final class ContaInicializador {
 		Conta conta1 = new Conta("familia_silva", "123", "Cartão de Crédito");
 		Set<Usuario> usuarios1 = new HashSet<Usuario>();
 		Usuario usuario1 = new Usuario("Pedro", "Pedro13",18);
-		Usuario usuario2 = new Usuario("Maria", "Maria_Luiza",15);
+		Usuario usuario2 = new Usuario("Maria", "Maria_Luiza",20);
 
 		Conta conta2 = new Conta("familia_Tavares", "123", "Cartão de Crédito");
 		Set<Usuario> usuarios2 = new HashSet<Usuario>();
 		Usuario usuario4 = new Usuario("Luana", "Luana.lulu",10);
-		Usuario usuario5 = new Usuario("Anna", "AnnaS2",7);
+		Usuario usuario5 = new Usuario("Anna", "AnnaS2",27);
 		Usuario usuario6 = new Usuario("Luiz", "Luiz_Henrique03",15);
 
 		Conta conta3 = new Conta("familia_Costa", "123", "Cartão de Crédito");
 		Set<Usuario> usuarios3 = new HashSet<Usuario>();
 		Usuario usuario7 = new Usuario("Matheus", "MatheusZ",25);
-		Usuario usuario8 = new Usuario("Marcia", "Mahh",16);
+		//Usuario usuario8 = new Usuario("Marcia", "Mahh",16);
 
 		Conta conta4 = new Conta("familia_Ferreira", "123", "Cartão de Crédito");
 		Set<Usuario> usuarios4 = new HashSet<Usuario>();
@@ -36,6 +36,10 @@ public final class ContaInicializador {
 		Conta conta5 = new Conta("familia_Santos", "123", "Cartão de Crédito");
 		Set<Usuario> usuarios5 = new HashSet<Usuario>();
 		Usuario usuario10 = new Usuario("Arthur", "Arthur_S",19);
+		Usuario usuario11 = new Usuario("Roberto", "RobertoS",25);
+		Usuario usuario12= new Usuario("Mirela", "Mihh",16);
+		Usuario usuario13= new Usuario("Pedro", "PedroS",25);
+		Usuario usuario14= new Usuario("Luiza", "Lu",16);
 
 		usuarios1.add(usuario1);
 		usuarios1.add(usuario2);
@@ -45,11 +49,15 @@ public final class ContaInicializador {
 		usuarios2.add(usuario6);
 		
 		usuarios3.add(usuario7);
-		usuarios3.add(usuario8);
+		//usuarios3.add(usuario8);
 		
 		usuarios4.add(usuario9);
 		
 		usuarios5.add(usuario10);
+		usuarios5.add(usuario11);
+		usuarios5.add(usuario12);
+		usuarios5.add(usuario13);
+		usuarios5.add(usuario14);
 
 		conta1.setUsuariosVinculados(usuarios1);
 		conta2.setUsuariosVinculados(usuarios2);
@@ -60,6 +68,9 @@ public final class ContaInicializador {
 		Set<Conta> contas = new HashSet<Conta>();
 		contas.add(conta1);
 		contas.add(conta2);
+		contas.add(conta3);
+		contas.add(conta4);
+		contas.add(conta5);
 
 		return contas;
 	}

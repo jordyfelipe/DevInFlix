@@ -2,9 +2,10 @@ package devinflix.entidades;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Conteudo implements Moderavel{
+public abstract class Conteudo implements Moderavel {
 
 	protected String titulo;
 	protected Genero genero;
@@ -15,7 +16,16 @@ public abstract class Conteudo implements Moderavel{
 	protected boolean improprio;
 	protected Integer faixaEtaria;
 	protected List<Comentario> comentarios = new ArrayList<Comentario>();
-	
+	private List<Episodio> episodios = new LinkedList<Episodio>();
+
+	public List<Episodio> getEpisodios() {
+		return episodios;
+	}
+
+	public void setEpisodios(List<Episodio> episodios) {
+		this.episodios = episodios;
+	}
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -67,15 +77,15 @@ public abstract class Conteudo implements Moderavel{
 	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
-	
+
 	public boolean isImproprio() {
 		return improprio;
 	}
-	
+
 	public void setImproprio(boolean improprio) {
 		this.improprio = improprio;
 	}
-	
+
 	public Integer getFaixaEtaria() {
 		return faixaEtaria;
 	}
@@ -87,5 +97,5 @@ public abstract class Conteudo implements Moderavel{
 	public abstract void comentar(String comentario, Usuario usuario);
 
 	public abstract String getConteudo();
-	
+
 }

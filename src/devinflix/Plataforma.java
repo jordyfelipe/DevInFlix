@@ -6,6 +6,7 @@ import java.util.Set;
 
 import devinflix.entidades.Conta;
 import devinflix.entidades.Conteudo;
+import devinflix.entidades.Serie;
 import devinflix.entidades.Usuario;
 import devinflix.inicializadores.CatalogoInicializador;
 import devinflix.inicializadores.ContaInicializador;
@@ -16,7 +17,7 @@ public class Plataforma {
 	private Set<Conta> contas = ContaInicializador.inicializaContas();
 
 	public void setUsuarioConta(Usuario usuario, Conta conta) {
-		if (conta.getUsuariosVinculados().size() < 3) {
+		if (conta.getUsuariosVinculados().size() < 5) {
 			conta.getUsuariosVinculados().add(usuario);
 			System.out.println("Usuário incluído com sucesso!");
 		} else {
@@ -48,45 +49,57 @@ public class Plataforma {
 	}
 
 	public void sugerirConteudo(Conteudo conteudo, Usuario usuario) {
+		if (verificaFaixaEtaria(conteudo, usuario)) {
+			usuario.setConteudoSugerido(conteudo);
+			System.out.println(conteudo.getTitulo() + " sugerido com sucesso!");
+		} else {
+			System.out.println("infelizmente, o conteúdo é impróprio para sua idade " + usuario.getNome() + ".");
+		}
 
-		usuario.setConteudoSugerido(conteudo);
-		System.out.println(conteudo.getTitulo() + " sugerido com sucesso!");
-
-		// ChronoUnit.MONTHS.between(null, null);
 	}
 
 	public void curtirDescurtirConteudo(Conteudo conteudo, Usuario usuario, boolean curtir) {
-		if (curtir) {
-			conteudo.setCurtidas(conteudo.getCurtidas() + 1);
-			usuario.setConteudosCurtidos(conteudo);
-			System.out.println("Conteúdo: " + conteudo.getTitulo() + " curtido!");
+		if (verificaFaixaEtaria(conteudo, usuario)) {
+			if (curtir) {
+				conteudo.setCurtidas(conteudo.getCurtidas() + 1);
+				usuario.setConteudosCurtidos(conteudo);
+				System.out.println("Conteúdo: " + conteudo.getTitulo() + " curtido!");
+			} else {
+				conteudo.setDescurtidas(conteudo.getDescurtidas() + 1);
+				usuario.setConteudosDescurtidos(conteudo);
+			}
 		} else {
-			conteudo.setDescurtidas(conteudo.getDescurtidas() + 1);
-			usuario.setConteudosDescurtidos(conteudo);
+			System.out.println("infelizmente, o conteúdo é impróprio para sua idade " + usuario.getNome() + ".");
 		}
 	}
 
 	// Usuário seleciona e assite um filme;
 	public void selecionarConteudo(Conteudo conteudo, Usuario usuario) {
-		if(conteudo.getFaixaEtaria()<=usuario.getIdade()) {
+		if (verificaFaixaEtaria(conteudo, usuario)) {
 			usuario.setConteudoSelecionado(conteudo);
-			System.out.println("Conteúdo selecionado");
-		}else {
-			System.out.println("infelizmente, o conteúdo é impróprio para sua idade "+usuario.getNome());
+			System.out.println("Conteúdo selecionado.");
+		} else {
+			System.out.println("infelizmente, o conteúdo é impróprio para sua idade " + usuario.getNome() + ".");
 		}
-		
+	}
+
+	public boolean verificaFaixaEtaria(Conteudo conteudo, Usuario usuario) {
+		if (conteudo.getFaixaEtaria() <= usuario.getIdade())
+			return true;
+		else
+			return false;
 	}
 
 	public static void main(String[] args) {
 		Plataforma devinflix = new Plataforma();
-		
+
 		// Adiciona novo perfil a conta
-		Usuario usuario1 = new Usuario("Joana", "Joaninha",18);
+		Usuario usuario1 = new Usuario("Joana", "Joaninha", 18);
 		devinflix.setUsuarioConta(usuario1, devinflix.getContaPorId(1));
-		
+
 		// Conta 1 sugeriu um filme
 		devinflix.sugerirConteudo(devinflix.getConteudoPorId(1), devinflix.getContaPorId(1).getUsuarioPorId(1));
-		
+
 		// Conta 2 sugeriu uma série
 		devinflix.sugerirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0));
 
@@ -104,10 +117,6 @@ public class Plataforma {
 		devinflix.curtirDescurtirConteudo(devinflix.getConteudoPorId(1), devinflix.getContaPorId(1).getUsuarioPorId(1),
 				true);
 
-		// Pega um conteudo impróprio
-		// devinflix.getConteudoPorId(0).setConteudoImproprio(devinflix.getConteudos(),
-		// devinflix.getConteudoPorId(0));
-
 		// Classifica um comentario como impróprio
 		devinflix.getConteudoPorId(0).getComentarios().get(0).setImproprio(true);
 		// Remove um comentário impróprio
@@ -117,11 +126,19 @@ public class Plataforma {
 		// Classifica um conteúdo como impróprio
 		devinflix.getConteudoPorId(0).setImproprio(true);
 		// Remove um conteúdo impróprio
-		devinflix.setConteudos(devinflix.getConteudoPorId(0)
-				.removeConteudoImproprio(devinflix.getConteudos()));
-		
-		//Teste Restrição etária
+		devinflix.setConteudos(devinflix.getConteudoPorId(0).removeConteudoImproprio(devinflix.getConteudos()));
+
+		// Teste Restrição etária
 		devinflix.selecionarConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0));
+
+		// Listar episódios ordenados
+		System.out.println("Listar Episódios de uma série:");
+		((Serie) devinflix.getConteudoPorId(6)).listarEpisodios();
+		
+		//Listar valor dos planos
+		System.out.println("Valor do plano para conta "+devinflix.getContaPorId(1).getEmail()+" é R$ "+devinflix.getContaPorId(1).valorPlano());
+		System.out.println("Valor do plano para conta "+devinflix.getContaPorId(2).getEmail()+" é R$ "+devinflix.getContaPorId(2).valorPlano());
+		System.out.println("Valor do plano para conta "+devinflix.getContaPorId(3).getEmail()+" é R$ "+devinflix.getContaPorId(3).valorPlano());
 
 	}
 

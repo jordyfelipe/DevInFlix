@@ -45,7 +45,7 @@ public class Conta {
 	public Set<Usuario> getUsuariosVinculados() {
 		return usuariosVinculados;
 	}
-	
+
 	public void setUsuariosVinculados(Set<Usuario> usuariosVinculados) {
 		this.usuariosVinculados = usuariosVinculados;
 	}
@@ -53,10 +53,23 @@ public class Conta {
 	public void setUsuariosVinculados(Usuario usuario) {
 		this.usuariosVinculados.add(usuario);
 	}
-	
+
 	public Usuario getUsuarioPorId(Integer index) {
 		List<Usuario> usuarios = new ArrayList<Usuario>(this.usuariosVinculados);
 		return usuarios.get(index);
 	}
-	
+
+	public Double valorPlano() {
+		Integer qtde = this.usuariosVinculados.size();
+
+		if (qtde < 2) {
+			return 9.90;
+		} else if (qtde >= 2 && qtde <= 4) {
+			return 6.90;
+		} else {
+			return 29.00;
+		}
+
+	}
+
 }

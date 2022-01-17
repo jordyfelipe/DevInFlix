@@ -9,6 +9,7 @@ import java.util.Set;
 public class Serie extends Conteudo {
 
 	private int temporadas;
+	private String url;
 
 	public Serie(String titulo, Integer faixaEtaria) {
 		super();
@@ -22,6 +23,21 @@ public class Serie extends Conteudo {
 
 	public void setTemporadas(int temporadas) {
 		this.temporadas = temporadas;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public void listarEpisodios() {		
+		for (Iterator<Episodio> it = this.getEpisodios().iterator(); it.hasNext();) {
+			Episodio episodio = it.next();
+				System.out.println(episodio.getTitulo()+" "+episodio.getDataLancamento()+".");
+		}
 	}
 
 	@Override
