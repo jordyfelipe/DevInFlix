@@ -53,7 +53,7 @@ public class Plataforma {
 			usuario.setConteudoSugerido(conteudo);
 			System.out.println(conteudo.getTitulo() + " sugerido com sucesso!");
 		} else {
-			System.out.println("infelizmente, o conteúdo é impróprio para sua idade " + usuario.getNome() + ".");
+			System.out.println("Infelizmente, o conteúdo \""+conteudo.getTitulo()+"\" é impróprio para sua idade " + usuario.getNome() + ".");
 		}
 
 	}
@@ -69,7 +69,7 @@ public class Plataforma {
 				usuario.setConteudosDescurtidos(conteudo);
 			}
 		} else {
-			System.out.println("infelizmente, o conteúdo é impróprio para sua idade " + usuario.getNome() + ".");
+			System.out.println("Infelizmente, o conteúdo \""+conteudo.getTitulo()+"\" é impróprio para sua idade " + usuario.getNome() + ".");
 		}
 	}
 
@@ -79,7 +79,7 @@ public class Plataforma {
 			usuario.setConteudoSelecionado(conteudo);
 			System.out.println("Conteúdo selecionado.");
 		} else {
-			System.out.println("infelizmente, o conteúdo é impróprio para sua idade " + usuario.getNome() + ".");
+			System.out.println("Infelizmente, o conteúdo \""+conteudo.getTitulo()+"\" é impróprio para sua idade " + usuario.getNome() + ".");
 		}
 	}
 
@@ -95,13 +95,13 @@ public class Plataforma {
 
 		// Adiciona novo perfil a conta
 		Usuario usuario1 = new Usuario("Joana", "Joaninha", 18);
-		devinflix.setUsuarioConta(usuario1, devinflix.getContaPorId(1));
+		devinflix.setUsuarioConta(usuario1, devinflix.getContaPorId(3));
 
 		// Conta 1 sugeriu um filme
-		devinflix.sugerirConteudo(devinflix.getConteudoPorId(1), devinflix.getContaPorId(1).getUsuarioPorId(1));
+		devinflix.sugerirConteudo(devinflix.getConteudoPorId(1), devinflix.getContaPorId(1).getUsuarioPorId(2));
 
 		// Conta 2 sugeriu uma série
-		devinflix.sugerirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0));
+		devinflix.sugerirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(1));
 
 		// Conta 2 comentou uma serie
 		devinflix.getConteudoPorId(0).comentar("Série muito boa! Recomendo!",
@@ -112,9 +112,9 @@ public class Plataforma {
 				+ devinflix.getConteudoPorId(0).getComentarios().get(0).getDescrição() + " Autor: "
 				+ devinflix.getConteudoPorId(0).getComentarios().get(0).getUsuario().getNome());
 
-		devinflix.curtirDescurtirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(0).getUsuarioPorId(0),
+		devinflix.curtirDescurtirConteudo(devinflix.getConteudoPorId(0), devinflix.getContaPorId(1).getUsuarioPorId(2),
 				true);
-		devinflix.curtirDescurtirConteudo(devinflix.getConteudoPorId(1), devinflix.getContaPorId(1).getUsuarioPorId(1),
+		devinflix.curtirDescurtirConteudo(devinflix.getConteudoPorId(1), devinflix.getContaPorId(3).getUsuarioPorId(1),
 				true);
 
 		// Classifica um comentario como impróprio
